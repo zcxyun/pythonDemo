@@ -1,4 +1,4 @@
-it = iter([1,2,3,4,5])
+it = iter(list(range(10)))
 while True:
     try:
         x = next(it)

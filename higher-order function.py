@@ -36,8 +36,66 @@ def primes():
         n = next(it)
         yield n
         it = filter(_not_divisible(n), it)
-for n in primes():
-    if n < 100:
-        print(n)
-    else:
-        break
+##for n in primes():
+##    if n < 100:
+##        print(n)
+##    else:
+##        break
+
+# closure
+##def count():
+##    fs = []
+##    for i in range(1, 4):
+##        def f():
+##            return i * i
+##        fs.append(f)
+##    return fs
+def count():
+    fs = []
+    def f(j):
+        def g():
+            return j * j
+        return g
+    for i in range(1, 4):
+        fs.append(f(i))
+    return fs
+##
+##f1, f2, f3 = count()
+##print(f1(), f2(), f3())
+
+# decorator
+##def log(func):
+##    def wrapper(*args, **kw):
+##        print('call %s():' % func.__name__)
+##        return func(*args, **kw)
+##    return wrapper
+##@log
+##def now():
+##    print('2014-4-4')
+##now()
+
+##def log(text):
+##    def decorator(func):
+##        def wrapper(*args, **kw):
+##            print('%s %s():' % (text, func.__name__))
+##            return func(*args, **kw)
+##        return wrapper
+##    return decorator
+##@log('exe')
+##def now():
+##    print('3028-3-2')
+##now()
+##print(now.__name__)
+
+import functools
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
+@log
+def now():
+    print('3028-3-2')
+now()
+print(now.__name__)

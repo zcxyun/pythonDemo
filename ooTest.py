@@ -130,42 +130,45 @@
 ##s = Student()
 ##s.score = 63
 ##print(s.score)
+
 # Python的方法主要有3个,即静态方法(staticmethod),类方法(classmethod)和实例方法 ###############
-##def foo(x):
-##    print "executing foo(%s)"%(x)
-##  
-##class A(object):
-##    def foo(self,x):
-##        print "executing foo(%s,%s)"%(self,x)
-##  
-##    @classmethod
-##    def class_foo(cls,x):
-##        print "executing class_foo(%s,%s)"%(cls,x)
-##  
-##    @staticmethod
-##    def static_foo(x):
-##        print "executing static_foo(%s)"%x
-##  
-##a=A()
+def foo(x):
+   print("executing foo(%s)" % (x))
 
-# dingzhi lei ########################################################
-class Student(object):
-    def __init__(self, name):
-        self.name = name
-    def get_name(self):
-        return self.name
-    def __str__(self):
-        return 'Student object  (name: %s)' % (self.name)
-    def __repr__(self):
-        return self.__str__()
-    __repr__ = __str__
-s = Student('xvc')
-# 类可以直接访问实例方法，不过好像得传入实例 ##################### 
-Student.get_name(Student('d')) # print 'd'
-print(s)
+class A(object):
+    def foo(self,x):
+        print("executing foo(%s,%s)" % (self,x))
 
-我是超人， 你是傻逼
+    @classmethod
+    def class_foo(cls,x):
+        print("executing class_foo(%s,%s)" % (cls,x))
 
+    @staticmethod
+    def static_foo(x):
+        print("executing static_foo(%s)" % x)
 
+a=A()
+print(a.foo('zcx1'))
+print(a.class_foo('zcx2'))
+print(a.static_foo('zcx3'))
+# 类无法调用实例方法，要想调用需要传入所有参数，也就是要传入第一个参数（实例）
+print(A.foo(A(), 'zcx4'))
+print(A.class_foo('zcx5'))
+print(A.static_foo('zcx6'))
 
-
+# 定制类 ########################################################
+# class Student(object):
+#     def __init__(self, name):
+#         self.name = name
+#     def get_name(self):
+#         return self.name
+#     def __str__(self):
+#         return 'Student object  (name: %s)' % (self.name)
+#     def __repr__(self):
+#         return self.__str__()
+#     __repr__ = __str__
+# s = Student('xvc')
+# # 类可以直接访问实例方法，不过好像得传入实例 #####################
+# name = Student.get_name(Student('d'))
+# print(name)
+# print(s)

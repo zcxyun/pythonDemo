@@ -1,47 +1,47 @@
-# 继承
-class Student(object):
-    def __init__(self, name, score):
-        self.__name = name
-        self.__score = score
-
-    def get_name(self):
-        return self.__name
-    def set_name(self, name):
-        self.__name = name
-
-    def get_score(self):
-        return self.__score
-    def set_score(self, score):
-        if 0 <= score <= 100:
-            self.__score = score
-        else:
-            raise ValueError('bad score')
-
-    def print_score(self):
-        print('%s: %s' % (self.__name, self.__score))
+# 继承 ########################################################
+##class Student(object):
+##    def __init__(self, name, score):
+##        self.__name = name
+##        self.__score = score
+##
+##    def get_name(self):
+##        return self.__name
+##    def set_name(self, name):
+##        self.__name = name
+##
+##    def get_score(self):
+##        return self.__score
+##    def set_score(self, score):
+##        if 0 <= score <= 100:
+##            self.__score = score
+##        else:
+##            raise ValueError('bad score')
+##
+##    def print_score(self):
+##        print('%s: %s' % (self.__name, self.__score))
 
 ##bart = Student('zcx', 100)
 ##bart.set_score(11)
 ##print(bart.get_name(),bart.get_score())
 ##print(bart._Student__name)
 
-# 鸭子类型
-class Animal(object):
-    def run(self):
-        print('Animal is running...')
-    def run_twice(self,animal):
-        animal.run()
-        animal.run()
-class Dog(Animal):
-    def run(self):
-        print('Dog is running...')
-class Cat(Animal):
-    def run(self):
-        print('Cat is running...')
-
-class Tortoise(Animal):
-    def run(self):
-        print('Tortoise is running slowly...')
+# 鸭子类型 ########################################################
+##class Animal(object):
+##    def run(self):
+##        print('Animal is running...')
+##    def run_twice(self,animal):
+##        animal.run()
+##        animal.run()
+##class Dog(Animal):
+##    def run(self):
+##        print('Dog is running...')
+##class Cat(Animal):
+##    def run(self):
+##        print('Cat is running...')
+##
+##class Tortoise(Animal):
+##    def run(self):
+##        print('Tortoise is runniwly...')
 
 ##dog = Dog()
 ##dog.run()
@@ -52,7 +52,7 @@ class Tortoise(Animal):
 ##animal.run_twice(Dog())
 ##animal.run_twice(Cat())
 
-# __slots__
+# __slots__ ########################################################
 
 ##class Student(object):
 ##    pass
@@ -100,7 +100,7 @@ class Tortoise(Animal):
 ##print(GraduateStudent.age2)
 ##print(g.age2)
 
-# 使用@property
+# 使用@property ########################################################
 ##class Student(object):
 ##    def get_score(self):
 ##        return self._score
@@ -114,22 +114,57 @@ class Tortoise(Animal):
 ##s.set_score(4)
 ##print(s.get_score())
 
+##class Student(object):
+##
+##    @property
+##    def score(self):
+##        return self._score
+##    @score.setter
+##    def score(self, value):
+##        if not isinstance(value, int):
+##            raise ValueError('score must be a integer!')
+##        if value < 0 or value > 100:
+##            raise ValueError('score must between 0-100')
+##        self._score = value
+
+##s = Student()
+##s.score = 63
+##print(s.score)
+# Python的方法主要有3个,即静态方法(staticmethod),类方法(classmethod)和实例方法 ###############
+##def foo(x):
+##    print "executing foo(%s)"%(x)
+##  
+##class A(object):
+##    def foo(self,x):
+##        print "executing foo(%s,%s)"%(self,x)
+##  
+##    @classmethod
+##    def class_foo(cls,x):
+##        print "executing class_foo(%s,%s)"%(cls,x)
+##  
+##    @staticmethod
+##    def static_foo(x):
+##        print "executing static_foo(%s)"%x
+##  
+##a=A()
+
+# dingzhi lei ########################################################
 class Student(object):
+    def __init__(self, name):
+        self.name = name
+    def get_name(self):
+        return self.name
+    def __str__(self):
+        return 'Student object  (name: %s)' % (self.name)
+    def __repr__(self):
+        return self.__str__()
+    __repr__ = __str__
+s = Student('xvc')
+# 类可以直接访问实例方法，不过好像得传入实例 ##################### 
+Student.get_name(Student('d')) # print 'd'
+print(s)
 
-    @property
-    def score(self):
-        return self._score
-    @score.setter
-    def score(self, value):
-        if not isinstance(value, int):
-            raise ValueError('score must be a integer!')
-        if value < 0 or value > 100:
-            raise ValueError('score must between 0-100')
-        self._score = value
-
-s = Student()
-s.score = 63
-print(s.score)
+我是超人， 你是傻逼
 
 
 

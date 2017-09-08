@@ -132,29 +132,30 @@
 ##print(s.score)
 
 # Python的方法主要有3个,即静态方法(staticmethod),类方法(classmethod)和实例方法 ###############
-def foo(x):
-   print("executing foo(%s)" % (x))
+# def foo(x):
+#    print("executing foo(%s)" % (x))
 
-class A(object):
-    def foo(self,x):
-        print("executing foo(%s,%s)" % (self,x))
+# class A(object):
+#     def foo(self,x):
+#         print("executing foo(%s,%s)" % (self,x))
 
-    @classmethod
-    def class_foo(cls,x):
-        print("executing class_foo(%s,%s)" % (cls,x))
+#     @classmethod
+#     def class_foo(cls,x):
+#         print("executing class_foo(%s,%s)" % (cls,x))
 
-    @staticmethod
-    def static_foo(x):
-        print("executing static_foo(%s)" % x)
+#     @staticmethod
+#     def static_foo(x):
+#         print("executing static_foo(%s)" % x)
 
-a=A()
-print(a.foo('zcx1'))
-print(a.class_foo('zcx2'))
-print(a.static_foo('zcx3'))
-# 类无法调用实例方法，要想调用需要传入所有参数，也就是要传入第一个参数（实例）
-print(A.foo(A(), 'zcx4'))
-print(A.class_foo('zcx5'))
-print(A.static_foo('zcx6'))
+# a=A()
+# print(a.foo('zcx1'))
+# print(a.class_foo('zcx2'))
+# print(a.static_foo('zcx3'))
+# # 类无法调用实例方法，要想调用需要传入所有参数，也就是要传入第一个参数（实例）
+# print(A.foo(A(), 'zcx4'))
+# print(A.class_foo('zcx5'))
+# print(A.static_foo('zcx6'))
+
 
 # 定制类 ########################################################
 # class Student(object):
@@ -172,3 +173,7 @@ print(A.static_foo('zcx6'))
 # name = Student.get_name(Student('d'))
 # print(name)
 # print(s)
+
+class Fib(object):
+
+

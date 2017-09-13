@@ -248,12 +248,42 @@
 # http://api.server/user/timeline/list
 # 如果要写SDK，给每个URL对应的API都写一个方法，那得累死，而且，API一旦改动，SDK也要改。
 # 利用完全动态的__getattr__，我们可以写出一个链式调用：
-class Chain(object):
-  def __init__(self, path=''):
-    self._path = path
-  def __getattr__(self, path):
-    return Chain('%s/%s' % (self._path, path))
-  def __str__(self):
-    return self._path
-  __repr__ = __str__
-print(Chain().status.user.timeline.list)
+# class Chain(object):
+#   def __init__(self, path=''):
+#     self._path = path
+#   def __getattr__(self, path):
+#     return Chain('%s/%s' % (self._path, path))
+#   def __str__(self):
+#     return self._path
+#   __repr__ = __str__
+# print(Chain().status.user.timeline.list)
+
+# 这样，无论API怎么变，SDK都可以根据URL实现完全动态的调用，而且，不随API的增加而改变！还有些REST API会把参数放到URL中，比如GitHub的API：调用时，需要把:user替换为实际用户名。如果我们能写出这样的链式调用：
+# class Chain(object):
+#   def __init__(self, path = 'GET '):
+#     self._path = path
+#   def __str__(self):
+#     return self._path
+#   __repr__ = __str__
+#   def __getattr__(self, path):
+#       return Chain("%s/%s" % (self._path, path))
+#   def users(self, name):
+#     return Chain("%s/users/:%s" % (self._path, name))
+# print(Chain().users('zcxsfsdfsd').repos)
+
+# test __call__
+# 任何类，只需要定义一个__call__()方法，就可以直接对实例进行调用
+class Student(object):
+    def __init__(self, name):
+      self._name = name
+    # def __call__(self):
+    #   print('my name is %s' % self._name)
+s = Student('zcx')
+# print(s())
+print(callable(s))
+print(callable(lambda x: x))
+print(callable(max))
+print(callable([1,2,3]))
+print(callable(None))
+print(callable('str'))
+

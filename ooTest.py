@@ -305,4 +305,3 @@ class Weekday(Enum):
   Sat = 6
 for name, member in Weekday.__members__.items():
   print(name, '=>', member, ',', member.value)
-  print

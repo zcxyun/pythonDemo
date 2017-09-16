@@ -1,4 +1,4 @@
-# 测试reduce()
+# 测试reduce() ##########################################
 from functools import reduce
 def add(x, y):
     return x + y
@@ -16,12 +16,12 @@ def str2int(s):
 
 ##print(str2int('12435345435') == int( '12435345435'))
 
-# 测试filter()
+# 测试filter() ######################################
 def is_odd(n):
     return n % 2 == 1
 ##print(list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15])))
 
-# 用filter() 求素数
+# 用filter() 求素数 ###################################
 def _odd_iter():
     n = 1
     while True:
@@ -42,7 +42,7 @@ def primes():
 ##    else:
 ##        break
 
-# closure
+# closure ########################################
 ##def count():
 ##    fs = []
 ##    for i in range(1, 4):
@@ -63,7 +63,7 @@ def count():
 ##f1, f2, f3 = count()
 ##print(f1(), f2(), f3())
 
-# decorator
+# decorator ######################################
 ##def log(func):
 ##    def wrapper(*args, **kw):
 ##        print('call %s():' % func.__name__)

@@ -1,14 +1,12 @@
 # 根据今天什么班计算未来某一天是什么班
 import time
 def workday(someworkOfToday, someday):
-  workkind = 'sdfsdf'
+  workkind = ''
   today = time.localtime()
   dt = time.strptime(someday, '%Y-%m-%d')
   # print(today.tm_yday)
   # print(dt.tm_yday)
   timeInterval = dt.tm_yday - today.tm_yday
-  
-##  
   someworkList = ['行政班', '主班', '夜班', '第一天休息', '第二天休息']
 #someworkList = ['xingZhengBan', 'zhuBan', 'yeBan', 'xiuXi_1', 'xiuXi_2']
   for x in range(5):

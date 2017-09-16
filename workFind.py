@@ -34,7 +34,7 @@ def workday(someworkOfToday, someday):
   return workkind
 ##todayWork = input('please input your workname of today:')
 
-todayWork = input('请输入工作日名称 回车键确认:')
+todayWork = input('请输入当前工作日名称 回车键确认:')
 ##furDay = input('please input your someday like 2017-9-9:')
 
 furDay = input('请输入日期像这样 2017-9-9 回车键确认:')

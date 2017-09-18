@@ -1,3 +1,36 @@
+# 测试 map list   #################################################
+##numList = [1,2,3,4,5,6,7]
+##def f(x):
+##    return x*x
+##L = []
+##for n in [1,2,3,4,5,6,7]:
+##    L.append(f(n))
+##print(L)
+##
+##n = map(f, [1,2,3,4,5,6,7])
+##print(list(n))
+
+##from functools import reduce
+##def add(x, y):
+##    return x * 10 + y
+##print(reduce(add, numList))
+
+# strList = ['adamdfdfdsFFF', 'LISAddfdfdFFFf', 'FbdddFarT']
+##def normalize(name):
+##    strL = []
+##    for i in range(len(name)):
+##        if i == 0:
+##            strL.append(name[i].upper())
+##        else:
+##            strL.append(name[i].lower())
+##    str = ''.join(strL)
+##    return str
+##print(list(map(normalize, strList)))
+
+##def normalize(name):
+##    return name[:1].upper() + name[1:].lower()
+##print(list(map(normalize, strList)))
+
 # 测试reduce() ##########################################
 from functools import reduce
 def add(x, y):
@@ -15,6 +48,14 @@ def str2int(s):
     return reduce(lambda x, y: x * 10 + y, map(char2num, s))
 
 ##print(str2int('12435345435') == int( '12435345435'))
+
+# ---------------------------------------------------
+
+# kv ={'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+# def strToFloat(s):
+#     return reduce(lambda x,y : x*10+y,map(lambda a: kv[a],s.replace('.',"")))/(10**len(s[s.find('.')+1:]))
+# print('\"12.12\" = %.2f' % strToFloat('12.12'))
+
 
 # 测试filter() ######################################
 def is_odd(n):

@@ -5,13 +5,16 @@
 
 import os
 
-def listFilesAtPath(path):
-    return [x for x in os.listdir(path) if os.path.isfile('%s/%s' % (path, x)) and '.py' in x]
-def listAllFilesAtPath(path):
+def listFilesAtPath(path, some_str='.py'):
+    return [x for x in os.listdir(path) if os.path.isfile('%s/%s' % (path, x)) and some_str in x]
+def listAllFilesAtPath(path, some_str='.py'):
+    file_list = []
     for i in os.listdir(path):
         if os.path.isdir('%s/%s' % (path, i)):
-            listAllFilesAtPath('%s/%s' % (path, i))
-    print(path)
-    print(listFilesAtPath(path))
+            listAllFilesAtPath('%s/%s' % (path, i), some_str)
+    file_list = listFilesAtPath(path, some_str)
+    if file_list != []:
+        print(path)
+        print(file_list)
 
-listAllFilesAtPath('E:/developer/pythonDemo')
+listAllFilesAtPath('D:/developer/pythonDemo','str')

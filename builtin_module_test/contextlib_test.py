@@ -49,7 +49,7 @@ with tag('h1'):
   print('hello')
   print('world')
 
-# 如果一个对象没有实现上下文，我们就不能把它用于with语句。这个时候，可以用closing()来把该对象变为上下文对象。例如，用with语句使用urlopen()：
+# 如果一个对象没有实现上下文，我们就不能把它用于with语句。这个时候，可以用closing()来把该对象变为上下文对。例如，用with语句使用urlopen()：
 from contextlib import closing
 from urllib.request import urlopen
 

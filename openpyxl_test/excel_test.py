@@ -21,9 +21,9 @@ sheet = wb.get_sheet_by_name('Sheet1')
 # print('Row: ' + str(c.row) + ', Column: ' + c.column + ' is: ' + c.value)
 # print('Cell ' + c.coordinate + ' is ' + c.value)
 
-# for i in range(1,8,2):
-#   print(i, sheet.cell(row=i, column=2).value)
+for i in range(1,8,2):
+  print(i, sheet.cell(row=i, column=2).value)
 
-# print(sheet.get_highest_row())
-# print(sheet.get_highest_column())
+print(sheet.get_highest_row())
+print(sheet.get_highest_column())
 

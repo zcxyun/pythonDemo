@@ -7,8 +7,8 @@ def workday(someworkOfToday, someday):
   # print(today.tm_yday)
   # print(dt.tm_yday)
   timeInterval = dt.tm_yday - today.tm_yday
-  someworkList = ['行政班', '主班', '夜班', '第一天休息', '第二天休息']
-#someworkList = ['xingZhengBan', 'zhuBan', 'yeBan', 'xiuXi_1', 'xiuXi_2']
+  # someworkList = ['行政班', '主班', '夜班', '第一天休息', '第二天休息']
+  someworkList = ['xz', 'zb', 'yb', 'xx1', 'xx2']
   for x in range(5):
     if someworkList[x] == someworkOfToday:
       if (timeInterval % 5) == 0:
@@ -32,7 +32,7 @@ def workday(someworkOfToday, someday):
   return workkind
 ##todayWork = input('please input your workname of today:')
 
-todayWork = input('请输入当前工作日名称 回车键确认:')
+todayWork = input('请输入当前工作日名称(拼音首字母，例如行政班:xz, 主班: zb, 夜班: yb, 休息1: xx1, 休息2: xx2) 回车键确认:')
 ##furDay = input('please input your someday like 2017-9-9:')
 
 furDay = input('请输入日期像这样 2017-9-9 回车键确认:')

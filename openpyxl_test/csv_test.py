@@ -3,8 +3,9 @@
 
 import csv
 # import codecs
-# with open('resource/example.csv') as originFile:
+# with codecs.open('resource/example.csv', 'r', 'utf-8') as originFile:
 with open('origin.csv', encoding='utf-8') as originFile:
-  exampleReader = csv.reader(originFile)
-  exampleData = list(exampleReader)
-  print(exampleData)
+  originReader = csv.reader(originFile, delimiter=' ')
+  originData = list(originReader)
+  print(originData)
+

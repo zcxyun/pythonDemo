@@ -36,15 +36,33 @@ with open('origin.csv', encoding='utf-16') as originFile:
 ##  print(originData)
   # for row in originReader:
     # print("Row #" + str(originReader.line_num) + " " + str(row))
+moneyIter = iter(money)
+payeeIter = iter(payee)
+payeeNumberIter = iter(payeeNumber)
+firstPayDateIter = iter(firstPayDate)
 
 wb = openpyxl.load_workbook('test.xlsx')
 ws = wb.get_sheet_by_name('Sheet1')
 i = 0
 for rowOfCellObjects in ws['B2':'H31']:
-  for index, cellObj in enumerate(rowOfCellObjects):
-    if cellObj.value == None:
+  for index, cell in enumerate(rowOfCellObjects):
+# for col in ws.iter.cols(min_row=1, max_col=9, max_row=31):
+#   for cell in col:
+    if cell.value == None:
       if index == 0:
-        cellObj.value = money[0]
+        cell.value = next(payeeIter)
+      if index == 1:
+        cell.value = next(firstPayDateIter)
+      if index == 2:
+        cell.value = next(moneyIter)
+      if index == 3:
+        cell.value = next(payeeNumberIter)
+      if index == 4:
+        cell.value = next(payeeIter)
+      if index == 5:
+        cell.value = next(moneyIter)
+
+
     # for cellObjIndex in len(rowOfCellObjects):
     # if cellObjIndex == 1:
     # ws[cellObjIndex] = money[]

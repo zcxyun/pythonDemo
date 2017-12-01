@@ -3,6 +3,7 @@
 
 import csv
 import openpyxl
+import itertools
 # from openpyxl.utils import get_column_letter, column_index_from_string
 
 money = []
@@ -28,50 +29,55 @@ with open('origin.csv', encoding='utf-16') as originFile:
     if title == '初次委托日期':
       for fpd in originData[1: len(originData)+1]:
         firstPayDate.append(fpd[index])
-# print(money)
-# print(payee)
-# print(payeeNumber)
-# print(firstPayDate)
 
-##  print(originData)
-  # for row in originReader:
-    # print("Row #" + str(originReader.line_num) + " " + str(row))
 moneyIter = iter(money)
 payeeIter = iter(payee)
 payeeNumberIter = iter(payeeNumber)
 firstPayDateIter = iter(firstPayDate)
 
 wb = openpyxl.load_workbook('test.xlsx')
-ws = wb.get_sheet_by_name('Sheet1')
-i = 0
-for rowOfCellObjects in ws['B2':'H31']:
-  for index, cell in enumerate(rowOfCellObjects):
-# for col in ws.iter.cols(min_row=1, max_col=9, max_row=31):
-#   for cell in col:
-    if cell.value == None:
-      if index == 0:
-        cell.value = next(payeeIter)
-      if index == 1:
-        cell.value = next(firstPayDateIter)
-      if index == 2:
-        cell.value = next(moneyIter)
-      if index == 3:
-        cell.value = next(payeeNumberIter)
-      if index == 4:
-        cell.value = next(payeeIter)
-      if index == 5:
-        cell.value = next(moneyIter)
+sheet = wb.get_sheet_by_name('sheet')
+sheetTemplate = wb.get_sheet_by_name('sheetTemplate')
+# 计数
+natuals = itertools.count(1)
+ns = itertools.takewhile(lambda x: x <= len(money), natuals)
+# csv 文件中的数据根据一定的规则复制到相应的 Excel 文件中
+def copy(sheet):
+  try:
+    print(sheet.title)
+    for rowOfCellObjects in sheet['B2':'H31']:
+      for index, cell in enumerate(rowOfCellObjects):
+        if cell.value == None:
+          if index == 0:
+            cell.value = next(payeeIter)
+          if index == 1:
+            cell.value = next(firstPayDateIter)
+          if index == 2:
+            cell.value = next(moneyIter)
+          if index == 3:
+            cell.value = next(payeeNumberIter)
+          if index == 4:
+            cell.value = rowOfCellObjects[0].value
+          if index == 5:
+            cell.value = rowOfCellObjects[2].value
+    # if sheet['A31'].value:
+    ws_next = wb.copy_worksheet(sheetTemplate)
+    ws_next.title = sheetTemplate.title[:5] + str(next(ns))
+    copy(ws_next)
+  except StopIteration as e:
+    return
+copy(sheet)
+# 根据前一个工作表的索引建立新工作表的索引
+def makeIndex():
 
+  sheet1 = wb.get_sheet_by_name('sheet1')
+  sheet1['A2'] = sheet['A31'].value + 1
+  print(sheet1['A2'].value)
+  for i in range(len(sheet1['A2':'A31'])):
+    if i >= 1:
+      sheet1['A2':'A31'][i][0].value = sheet1['A2':'A31'][i-1][0].value + 1
 
-    # for cellObjIndex in len(rowOfCellObjects):
-    # if cellObjIndex == 1:
-    # ws[cellObjIndex] = money[]
-# ws['B23'].value = originData[1][1]
-# ws['C23'].value = originData[1][4]
-# ws['D23'].value = originData[1][0]
-# ws['E23'].value = originData[1][2]
-# ws['F23'].value = ws['B23'].value
-# ws['G23'].value = ws['D23'].value
-
+makeIndex()
 wb.save('test.xlsx')
+
 

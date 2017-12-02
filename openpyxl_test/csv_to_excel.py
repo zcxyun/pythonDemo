@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import csv
+import re
 import openpyxl
 import itertools
 # from openpyxl.utils import get_column_letter, column_index_from_string
@@ -12,6 +13,7 @@ payeeNumber = []
 firstPayDate = []
 
 ##with open('resource/example.csv', encoding='utf-8') as originFile:
+# 将csv文件的数据提取到相应的列表中
 with open('origin.csv', encoding='utf-16') as originFile:
   originReader = csv.reader(originFile, delimiter='\t')
   originData = list(originReader)
@@ -30,15 +32,19 @@ with open('origin.csv', encoding='utf-16') as originFile:
       for fpd in originData[1: len(originData)+1]:
         firstPayDate.append(fpd[index])
 
+# 将相应的列表转换为相应的迭代器
 moneyIter = iter(money)
 payeeIter = iter(payee)
 payeeNumberIter = iter(payeeNumber)
 firstPayDateIter = iter(firstPayDate)
 
+# 加载 excel 文件
 wb = openpyxl.load_workbook('test.xlsx')
-sheet = wb.get_sheet_by_name('sheet')
+# 获取工作表
+sheet0 = wb.get_sheet_by_name('sheet0')
+# 获取工作表模板
 sheetTemplate = wb.get_sheet_by_name('sheetTemplate')
-# 计数
+# 计数器
 natuals = itertools.count(1)
 ns = itertools.takewhile(lambda x: x <= len(money), natuals)
 # csv 文件中的数据根据一定的规则复制到相应的 Excel 文件中
@@ -66,18 +72,27 @@ def copy(sheet):
     copy(ws_next)
   except StopIteration as e:
     return
-copy(sheet)
+
+# copy(sheet0)
 # 根据前一个工作表的索引建立新工作表的索引
-def makeIndex():
-
-  sheet1 = wb.get_sheet_by_name('sheet1')
-  sheet1['A2'] = sheet['A31'].value + 1
-  print(sheet1['A2'].value)
-  for i in range(len(sheet1['A2':'A31'])):
+def makeIndex(sheet):
+  title = re.match(r'^([a-zA-Z]+)(\d+)$', sheet.title)
+  titleStr = title.group(1)
+  titleExt = title.group(2)
+  titleExtToInt = int(titleExt)
+  # print(str(titleExtToInt+1))
+  sheetPrev = wb.get_sheet_by_name(titleStr + str(titleExtToInt-1))
+  # print(sheetPrev)
+  sheet['A2'] = sheetPrev['A31'].value + 1
+  print(sheet['A2'].value)
+  for i in range(len(sheet['A2':'A31'])):
     if i >= 1:
-      sheet1['A2':'A31'][i][0].value = sheet1['A2':'A31'][i-1][0].value + 1
+      sheet['A2':'A31'][i][0].value = sheet['A2':'A31'][i-1][0].value + 1
 
-makeIndex()
+for sh in wb:
+  if sh.title != 'sheetTemplate' and sh.title != 'sheet0' :
+    makeIndex(sh)
+
 wb.save('test.xlsx')
 
 

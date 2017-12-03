@@ -12,7 +12,7 @@ payee = []
 payeeNumber = []
 firstPayDate = []
 
-##with open('resource/example.csv', encoding='utf-8') as originFile:
+#with open('resource/example.csv', encoding='utf-8') as originFile:
 # 将csv文件的数据提取到相应的列表中
 with open('origin.csv', encoding='utf-16') as originFile:
   originReader = csv.reader(originFile, delimiter='\t')
@@ -50,7 +50,7 @@ ns = itertools.takewhile(lambda x: x <= len(money), natuals)
 # csv 文件中的数据根据一定的规则复制到相应的 Excel 文件中
 def copy(sheet):
   try:
-    print(sheet.title)
+    # print(sheet.title)
     for rowOfCellObjects in sheet['B2':'H31']:
       for index, cell in enumerate(rowOfCellObjects):
         if cell.value == None:
@@ -73,7 +73,7 @@ def copy(sheet):
   except StopIteration as e:
     return
 
-# copy(sheet0)
+copy(sheet0)
 # 根据前一个工作表的索引建立新工作表的索引
 def makeIndex(sheet):
   title = re.match(r'^([a-zA-Z]+)(\d+)$', sheet.title)
@@ -84,12 +84,17 @@ def makeIndex(sheet):
   sheetPrev = wb.get_sheet_by_name(titleStr + str(titleExtToInt-1))
   # print(sheetPrev)
   sheet['A2'] = sheetPrev['A31'].value + 1
-  print(sheet['A2'].value)
+  # print(sheet['A2'].value)
   for i in range(len(sheet['A2':'A31'])):
     if i >= 1:
       sheet['A2':'A31'][i][0].value = sheet['A2':'A31'][i-1][0].value + 1
 
+def moneySum(sheet):
+  sheet['D32'] = "=SUM(D2:D31)"
+  sheet['G32'] = "=SUM(G2:G31)"
+
 for sh in wb:
+  moneySum(sh)
   if sh.title != 'sheetTemplate' and sh.title != 'sheet0' :
     makeIndex(sh)
 

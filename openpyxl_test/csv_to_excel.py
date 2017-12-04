@@ -5,6 +5,7 @@ import csv
 import re
 import openpyxl
 import itertools
+from datetime import datetime
 # from openpyxl.utils import get_column_letter, column_index_from_string
 
 money = []
@@ -14,7 +15,7 @@ firstPayDate = []
 
 #with open('resource/example.csv', encoding='utf-8') as originFile:
 # 将csv文件的数据提取到相应的列表中
-with open('origin.csv', encoding='utf-16') as originFile:
+with open('E:/新农合银行转账统计表/新农合网银统计银行下载原件/12.1-12.4.csv', encoding='utf-16') as originFile:
   originReader = csv.reader(originFile, delimiter='\t')
   originData = list(originReader)
 
@@ -30,7 +31,7 @@ with open('origin.csv', encoding='utf-16') as originFile:
         payeeNumber.append(pn[index])
     if title == '初次委托日期':
       for fpd in originData[1: len(originData)+1]:
-        firstPayDate.append(fpd[index])
+        firstPayDate.append(fpd[index][:10])
 
 # 将相应的列表转换为相应的迭代器
 moneyIter = iter(money)
@@ -39,7 +40,7 @@ payeeNumberIter = iter(payeeNumber)
 firstPayDateIter = iter(firstPayDate)
 
 # 加载 excel 文件
-wb = openpyxl.load_workbook('test.xlsx')
+wb = openpyxl.load_workbook('E:/新农合银行转账统计表/2017-12-01至2017-12-31.xlsx')
 # 获取工作表
 sheet0 = wb.get_sheet_by_name('sheet0')
 # 获取工作表模板
@@ -51,7 +52,7 @@ ns = itertools.takewhile(lambda x: x <= len(money), natuals)
 def copy(sheet):
   try:
     # print(sheet.title)
-    for rowOfCellObjects in sheet['B2':'H31']:
+    for rowOfCellObjects in sheet['B5':'H34']:
       for index, cell in enumerate(rowOfCellObjects):
         if cell.value == None:
           if index == 0:
@@ -66,7 +67,8 @@ def copy(sheet):
             cell.value = rowOfCellObjects[0].value
           if index == 5:
             cell.value = rowOfCellObjects[2].value
-    # if sheet['A31'].value:
+          # if index == 6:
+          #   cell.value = datetime.now().date()
     ws_next = wb.copy_worksheet(sheetTemplate)
     ws_next.title = sheetTemplate.title[:5] + str(next(ns))
     copy(ws_next)
@@ -83,21 +85,20 @@ def makeIndex(sheet):
   # print(str(titleExtToInt+1))
   sheetPrev = wb.get_sheet_by_name(titleStr + str(titleExtToInt-1))
   # print(sheetPrev)
-  sheet['A2'] = sheetPrev['A31'].value + 1
+  sheet['A5'] = sheetPrev['A34'].value + 1
   # print(sheet['A2'].value)
-  for i in range(len(sheet['A2':'A31'])):
+  for i in range(len(sheet['A5':'A34'])):
     if i >= 1:
-      sheet['A2':'A31'][i][0].value = sheet['A2':'A31'][i-1][0].value + 1
+      sheet['A5':'A34'][i][0].value = sheet['A5':'A34'][i-1][0].value + 1
 
+# 合计支付金额
 def moneySum(sheet):
-  sheet['D32'] = "=SUM(D2:D31)"
-  sheet['G32'] = "=SUM(G2:G31)"
+  sheet['D35'] = "=SUM(D5:D34)"
+  sheet['G35'] = "=SUM(G5:G34)"
 
 for sh in wb:
   moneySum(sh)
   if sh.title != 'sheetTemplate' and sh.title != 'sheet0' :
     makeIndex(sh)
 
-wb.save('test.xlsx')
-
-
+wb.save('E:/新农合银行转账统计表/2017-12-01至2017-12-31.xlsx')

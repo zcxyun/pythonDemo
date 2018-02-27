@@ -38,3 +38,6 @@
 # # print(s.pop(), s.remove())
 # print(l.pop(1), l.remove(8))
 # print(l)
+
+
+

@@ -33,8 +33,11 @@
 
 # 测试reduce() ##########################################
 from functools import reduce
+
+
 def add(x, y):
     return x + y
+
 
 def fn(x, y):
     return x * 10 + y
@@ -127,6 +130,7 @@ def count():
 ##    print('3028-3-2')
 ##now()
 ##print(now.__name__)
+
 
 import functools
 def log(func):

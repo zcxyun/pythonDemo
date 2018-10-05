@@ -39,3 +39,6 @@ for key, group in itertools.groupby('AAABBBCCAAA'):
 
 for key, group in itertools.groupby('AaaBBbCcAAaa', lambda c: c.upper()):
   print(key, list(group))
+
+
+

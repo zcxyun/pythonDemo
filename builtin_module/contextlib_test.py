@@ -20,50 +20,83 @@
 #   q.query()
 
 # @contextmanager test
-from contextlib import contextmanager
+# from contextlib import contextmanager
 
-class Query(object):
+# class Query(object):
 
-  def __init__(self, name):
-    self.name = name
-  def query(self):
-    print('Query info about %s' % self.name)
+#   def __init__(self, name):
+#     self.name = name
+#   def query(self):
+#     print('Query info about %s' % self.name)
 
-@contextmanager
-def create_query(name):
-  print('Begin')
-  q = Query(name)
-  yield q
-  print('End')
+# @contextmanager
+# def create_query(name):
+#   print('Begin')
+#   q = Query(name)
+#   yield q
+#   print('End')
 
-with create_query('zcx') as q:
-  q.query()
+# with create_query('zcx') as q:
+#   q.query()
 
 # 很多时候，我们希望在某段代码执行前后自动执行特定代码，也可以用@contextmanager实现
-@contextmanager
-def tag(name):
-  print('<%s>' % name)
-  yield
-  print('</%s>' % name)
-with tag('h1'):
-  print('hello')
-  print('world')
+# @contextmanager
+# def tag(name):
+#   print('<%s>' % name)
+#   yield
+#   print('</%s>' % name)
+# with tag('h1'):
+#   print('hello')
+#   print('world')
 
 # 如果一个对象没有实现上下文，我们就不能把它用于with语句。这个时候，可以用closing()来把该对象变为上下文对。例如，用with语句使用urlopen()：
-from contextlib import closing
-from urllib.request import urlopen
+# from contextlib import closing
+# from urllib.request import urlopen
 
-with closing(urlopen('http://www.python.org')) as page:
-  for line in page:
-    print(line)
+# with closing(urlopen('http://www.python.org')) as page:
+#   for line in page:
+#     print(line)
 
 # closing也是一个经过@contextmanager装饰的generator，这个generator编写起来其实非常简单：
 
-@contextmanager
-def closing(thing):
-  try:
-    yield thing
-  finally:
-    thing.close()
+# @contextmanager
+# def closing(thing):
+#   try:
+#     yield thing
+#   finally:
+#     thing.close()
 
+
+def decorator(func):
+  print('this is decorator')
+  print('func:', func('zcx').show())
+  return func
+
+@decorator
+class Test:
+    mine = 'mine'
+
+    def __init__(self, name):
+        self.name = name
+
+    def __enter__(self):
+        print('enter')
+        self.name = '<<%s>>' % self.name
+        return self
+
+    def __exit__(self, exctype, excvalue, td):
+        print('exit')
+
+    def show(self):
+        print(self.name)
+
+# from contextlib import contextmanager
+
+# @contextmanager
+# def test(name):
+#   s = '<<%s>>' % name
+#   yield s
+
+# with test('shit') as s:
+#   print(s)
 

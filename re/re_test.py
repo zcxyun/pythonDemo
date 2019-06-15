@@ -1,5 +1,5 @@
 # 正则表达式 ===========================================================
-# import re
+import re
 # a = """
 # 0c,
 # 0c++,
@@ -12,16 +12,21 @@
 # r = re.findall(r'[a-z+#]+', a)
 # print(r)
 
-# s = 'abc37d2d85'
-# def convert(value):
-#   matched = value.group()
-#   return '90' if int(matched) >= 50 else '00'
-# r = re.match(r'\d{2}', s)
-# r1 = re.search(r'\d{3}', s)
-# print(r, r1)
+s = 'abc37d2d85'
+def convert(value):
+  matched = value.group()
+  return '90' if int(matched) >= 50 else '00'
+r = re.match(r'\d{2}', s)
+r1 = re.search(r'\d{2}', s)
+r2 = re.findall(r'\d{2}', s)
+print(r)
+print(r1)
+print(r2)
+print(r1.group())
 
 # s = 'life is short, so i use python'
 # r = re.findall(r'(sh).*(so)', s)
 # print(r)
 # r1 = re.findall(r'li\w\w', s)
-# print(r1)
+# r2 = re.findall(r'(li\w\w)', s)
+# print(r1, r2)

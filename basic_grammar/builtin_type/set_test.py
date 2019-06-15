@@ -7,3 +7,12 @@
 # # print(s.pop(), s.remove())
 # print(l.pop(1), l.remove(8))
 # print(l)
+
+a = {1,2,3,0,4}
+b = {4,5,6,0}
+c = {7,8,9}
+
+print(a&b)
+print(a|b)
+print(a-b)
+print(a^b)

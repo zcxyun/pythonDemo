@@ -23,23 +23,47 @@
 #     f1()
 # f2()
 
+# dir(), __dict__, vars() ==============================================
+# class A:
+#     one = 1
+#     two = 2
+#     def __init__(self):
+#         self.three = 3
 
+# class T(A):
+#     sex = True
+#     def __init__(self):
+#         self.name = 'sdf'
+#         self.age = 13
 
+#     def isset(self):
+#         pass
 
+# t = T()
+# print(dir(t))
+# print()
+# print(dir(T))
+# print()
+# print(vars(t))
+# print(t.__dict__)
+# print()
+# print(vars(T))
+# print(T.__dict__)
 
+a = [1,2,3,2,3,4]
+b = [4,5,6]
+c = [7,8,9]
 
-from collections import defaultdict, namedtuple, OrderedDict, Iterable
-from itertools import chain
-from functools import reduce
-from operator import add,mul
-import json
-from contextlib import contextmanager
-import types
+# print([1,2] in a)
 
-a = [1,1,2,2,3,3,3,3,4,5,5,9,7,21]
-print(min(set(a), key=a.count))
-print(isinstance({1:1}, Iterable))
-
-
-
-
+data = [
+    {'id': 9, 'name': 'zcx1'},
+    {'id': 1, 'name': 'zcx1'},
+    {'id': 2, 'name': 'zcx2'},
+    {'id': 3, 'name': 'zcx3'},
+    {'id': 3, 'name': 'zcx3'},
+    {'id': 3, 'name': 'zcx3'},
+    {'id': 4, 'name': 'zcx4'},
+]
+for i in data[0]:
+    print(i)

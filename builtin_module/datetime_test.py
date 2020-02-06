@@ -1,7 +1,7 @@
 # #! /usr/bin/env python3
 # # -*- coding: utf-8 -*-
-
-from datetime import datetime, timedelta
+from pprint import pprint
+from datetime import datetime, timedelta, date
 
 # # 获取当前日期和时间
 # now = datetime.now()
@@ -31,12 +31,19 @@ from datetime import datetime, timedelta
 # print(now + timedelta(days=2, hours=12))
 
 # ----------------------
-now = datetime.now()
-print(now.year)
-print(now.month)
-print(now.day)
-print(now.hour)
-print(now.minute)
-print(now.second)
-print(now.date())
-print(now.time())
+# now = datetime.now()
+# print(now.year)
+# print(now.month)
+# print(now.day)
+# print(now.hour)
+# print(now.minute)
+# print(now.second)
+# print(now.date())
+# print(now.time())
+
+# 时间比大小
+# now = datetime.now()
+# ago_30_days = now - timedelta(days=30)
+# print((now - ago_30_days).days)
+
+datetime.strptime('sdfs', '%Y-%m-%d %H:%M:%S')

@@ -1,6 +1,6 @@
 # # 枚举 ===============================================================
 from enum import Enum
-from enum import IntEnum,unique
+from enum import IntEnum, unique
 # @unique
 # class Vip(IntEnum):
 #   RED = 1
@@ -24,11 +24,11 @@ class Weekday(Enum):
   Fri = 5
   Sat = 6
 # for name, member in Weekday.__members__.items():
-  # print(name, '=>', member, ',', member.value)
+#   print(name, '=>', member, ',', member.value)
 
 # print(type(Weekday.Sun) == Weekday)
 
 # try:
 # print(Weekday(9))
 # except Exception as e:
-  # print(str(e))
+#   print(str(e))

@@ -9,6 +9,7 @@ a = [1, 2, 3, 2, 3, 4]
 b = [4, 5, 6]
 c = [7, 8, 9]
 d = [1, [2], [[3]], 4]
+s = 'abcdefghijklmnopqrstuvwxyz'
 
 data = [
     {'id': 9, 'name': 'zcx1', 'age': 1},
@@ -22,19 +23,32 @@ data = [
 
 me = data[0]
 
-# class User:
-#     def __init__(self, name='zcx', age=18):
-#         self.name = name
-#         self.age = age
-#     def __repr__(self):
-#         return f'{self.name} - {self.age}'
+class User:
+    def __init__(self, name='zcx', age=18):
+        self.name = name
+        self.age = age
+    @property
+    def sex(self):
+        return 1
 
-# user1 = User()
-# user2 = User('superman', '2999')
-# user3 = User('spiderman', '39')
-# user4 = User('batman', '45')
+    def keys(self):
+        return ('name', 'age', 'sex')
+    def __getitem__(self, key):
+        return getattr(self, key)
+    def __repr__(self):
+        return f'{self.name} - {self.age}'
 
-from datetime import datetime
+class Jack(User):
+    def __init__(self, name='jack', age=20, sex=1):
+        super().__init__(name, age)
+        self.sex = sex
 
-date = datetime.strptime('2010-2-2 12:1:12', '%Y-%m-%d %H:%M:%S')
-print(date.strftime('%Y-%m-%d'))
+    def __repr__(self):
+        return f'{self.name} - {self.age} - {self.sex}'
+
+# jack = Jack()
+# print(jack)
+
+# res = User()
+print(dict(User()))
+print(vars(User()))

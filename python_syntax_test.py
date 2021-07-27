@@ -23,6 +23,10 @@ data = [
 
 me = data[0]
 
+
+for i in data[0]:
+    print(i)
+
 class User:
     def __init__(self, name='zcx', age=18):
         self.name = name
@@ -50,5 +54,6 @@ class Jack(User):
 # print(jack)
 
 # res = User()
-print(dict(User()))
-print(vars(User()))
+# print(dict(User()))
+# print(vars(User()))
+
